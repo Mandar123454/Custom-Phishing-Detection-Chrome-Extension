@@ -1,0 +1,9 @@
+# Netlify configuration file
+[build]
+  publish = "."  # The directory to publish (root of your project)
+
+# Basic redirects for SPA if needed
+[[redirects]]
+  from = "/*"
+  to = "/dashboard.html"
+  status = 200

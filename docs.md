@@ -34,26 +34,6 @@ The extension follows a modular architecture with the following main components:
 The extension uses Chrome's Extension API to interact with browser functions while maintaining a separation of concerns between different components.
 
 
-## Screenshots Analysis
-
-### Dashboard Overview
-
-![Example 1](./Screenshots/Example%201.png)
-![Example 2](./Screenshots/Example%202.png)
-![Example 3](./Screenshots/Example%203.png)
-![Time Range](./Screenshots/Time%20Range.png)
-
-3. **Detection Summary**: Visual representation of score distribution across all detections
-4. **Recent Detections Table**: Chronological listing of recently analyzed URLs with:
-   - Timestamp
-   - URL
-   - Detection score
-   - Status indicator (color-coded)
-   - Action buttons for detailed analysis
-
-The dashboard uses a dark theme by default for reduced eye strain during extended use.
-
-
 
 ### Extension Popup
 

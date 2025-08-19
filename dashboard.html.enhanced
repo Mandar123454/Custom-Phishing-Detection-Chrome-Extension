@@ -11,51 +11,33 @@
 <body>
     <div class="container">
         <header>
-            <div class="header-content">
-                <div class="header-left">
-                    <!-- Empty for spacing -->
+            <h1><span class="icon"><i class="fas fa-shield-alt"></i></span> Phishing Detection Dashboard</h1>
+            <div class="header-right">
+                <div class="date-range">
+                    <span>Period:</span>
+                    <select id="time-period">
+                        <option value="today">Today</option>
+                        <option value="week" selected>Last 7 days</option>
+                        <option value="month">Last 30 days</option>
+                        <option value="quarter">Last 90 days</option>
+                    </select>
                 </div>
-                <div class="header-center">
-                    <div class="logo-container">
-                        <div class="logo-icon animated">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                    </div>
-                    <h1 class="animated-gradient-text">Phishing Detection Dashboard</h1>
-                </div>
-                <div class="header-right">
-                    <div class="date-range">
-                        <span class="period-label">Period:</span>
-                        <div class="select-wrapper">
-                            <select id="time-period">
-                                <option value="today">Today</option>
-                                <option value="week" selected>Last 7 days</option>
-                                <option value="month">Last 30 days</option>
-                                <option value="quarter">Last 90 days</option>
-                            </select>
-                            <i class="fas fa-chevron-down select-arrow"></i>
-                        </div>
-                    </div>
-                    <div class="theme-toggle dark-mode-locked" title="Dark Mode Enabled">
-                        <i class="fas fa-moon"></i>
-                    </div>
+                <div class="theme-toggle">
+                    <i class="fas fa-sun"></i>
                 </div>
             </div>
         </header>
 
         <div class="stats">
             <div class="stat-card safe">
-                <div class="indicator-dot"></div>
                 <h3><i class="fas fa-check-circle"></i> Safe URLs</h3>
                 <div class="stat-value">326</div>
             </div>
             <div class="stat-card warning">
-                <div class="indicator-dot"></div>
                 <h3><i class="fas fa-exclamation-triangle"></i> Suspicious URLs</h3>
                 <div class="stat-value">45</div>
             </div>
             <div class="stat-card danger">
-                <div class="indicator-dot"></div>
                 <h3><i class="fas fa-ban"></i> Phishing Attempts</h3>
                 <div class="stat-value">18</div>
             </div>
@@ -182,90 +164,6 @@
                 <button class="action-button" id="update-model-btn">
                     <i class="fas fa-sync"></i> Update Model
                 </button>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="threat-intel-header">
-                <div class="threat-intel-icon">
-                    <i class="fas fa-project-diagram"></i>
-                </div>
-                <h2>Threat Intelligence</h2>
-            </div>
-            <div class="insight-cards">
-                <div class="insight-card">
-                    <div class="insight-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="insight-content">
-                        <h3>Geographic Insights</h3>
-                        <p>Highest attack sources: Russia, China, Brazil</p>
-                        <div class="insight-data">
-                            <div class="geo-bar" data-value="65">
-                                <span class="label">Russia</span>
-                                <div class="bar"><span class="fill" style="width:65%"></span></div>
-                                <span class="value">65%</span>
-                            </div>
-                            <div class="geo-bar" data-value="48">
-                                <span class="label">China</span>
-                                <div class="bar"><span class="fill" style="width:48%"></span></div>
-                                <span class="value">48%</span>
-                            </div>
-                            <div class="geo-bar" data-value="32">
-                                <span class="label">Brazil</span>
-                                <div class="bar"><span class="fill" style="width:32%"></span></div>
-                                <span class="value">32%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="insight-card">
-                    <div class="insight-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <div class="insight-content">
-                        <h3>Target Analysis</h3>
-                        <p>Most targeted sectors this month</p>
-                        <div class="target-sectors">
-                            <span class="sector-tag">Financial <span class="sector-count">65</span></span>
-                            <span class="sector-tag">Healthcare <span class="sector-count">48</span></span>
-                            <span class="sector-tag">E-commerce <span class="sector-count">37</span></span>
-                            <span class="sector-tag">Government <span class="sector-count">24</span></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="insight-card">
-                    <div class="insight-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="insight-content">
-                        <h3>AI Defense Performance</h3>
-                        <p>Real-time monitoring metrics</p>
-                        <div class="performance-metrics">
-                            <div class="metric">
-                                <span class="metric-title">Detection Rate</span>
-                                <div class="metric-value" id="detection-rate">99.1%</div>
-                                <div class="metric-trend negative">
-                                    <i class="fas fa-arrow-down"></i> 0.11
-                                </div>
-                            </div>
-                            <div class="metric">
-                                <span class="metric-title">False Positives</span>
-                                <div class="metric-value" id="false-positive-rate">0.06%</div>
-                                <div class="metric-trend negative">
-                                    <i class="fas fa-arrow-up"></i> 0.02
-                                </div>
-                            </div>
-                            <div class="metric">
-                                <span class="metric-title">Response Time</span>
-                                <div class="metric-value" id="response-time">41ms</div>
-                                <div class="metric-trend positive">
-                                    <i class="fas fa-arrow-down"></i> 14.06
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

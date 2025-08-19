@@ -1,0 +1,100 @@
+/* Updated Header Styles to match the screenshot */
+
+.header-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #3e69ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 0 15px rgba(62, 105, 255, 0.4);
+  margin-right: 10px;
+}
+
+.logo-icon i {
+  color: white;
+  font-size: 20px;
+  z-index: 2;
+}
+
+.logo-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.header-center h1 {
+  color: #5d78ff;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0;
+  background: linear-gradient(to right, #5d78ff, #92aaff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+/* Updated theme toggle for the header */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(24, 33, 59, 0.7);
+  border: 1px solid rgba(45, 58, 92, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #5d78ff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  position: relative;
+}
+
+.theme-toggle.dark-mode-locked {
+  background: linear-gradient(145deg, rgba(24, 33, 59, 0.7), rgba(19, 27, 48, 0.7));
+  border: 1px solid rgba(93, 120, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 0 10px rgba(93, 120, 255, 0.15);
+}
+
+.theme-toggle i {
+  font-size: 16px;
+  color: #5d78ff;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(93, 120, 255, 0.25);
+  border-color: rgba(93, 120, 255, 0.5);
+}
+
+.theme-toggle:hover i {
+  color: #92aaff;
+}

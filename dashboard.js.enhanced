@@ -1,24 +1,26 @@
 // Dashboard JavaScript with enhanced functionality for button event handlers
 document.addEventListener('DOMContentLoaded', function() {
-    // Remove any light-mode class if it exists
-    if (document.body.classList.contains('light-mode')) {
-        document.body.classList.remove('light-mode');
-    }
-    
-    // Always use dark mode
-    localStorage.setItem('theme', 'dark');
-    
-    // Update the theme toggle icon to show it's locked to dark mode
+    // Theme toggle functionality
     const themeToggle = document.querySelector('.theme-toggle');
     if (themeToggle) {
-        themeToggle.querySelector('i').className = 'fas fa-moon';
-        themeToggle.title = "Dark Mode Enabled";
-        themeToggle.classList.add('dark-mode-locked');
-        
-        // Visual feedback on click but don't toggle the theme
         themeToggle.addEventListener('click', function() {
-            showNotification('Dashboard is set to dark mode only', 'info');
+            document.body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
         });
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.querySelector('i').className = 'fas fa-moon';
+        }
     }
 
     // Notification system
@@ -250,16 +252,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                 </div>
                 <div class="detail-item" style="margin-top: 20px;">
-                    <span class="detail-label">Visual Analysis</span>
-                    <div class="screenshot-placeholder">
-                        <div class="screenshot-icon-container">
-                            <i class="fas fa-shield-alt"></i>
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <div class="screenshot-info">
-                            <p class="screenshot-title">Visual analysis processed</p>
-                            <p class="screenshot-description">This URL has been analyzed using our visual pattern recognition engine</p>
-                        </div>
+                    <span class="detail-label">Screenshot</span>
+                    <div style="margin-top: 10px; border: 1px solid var(--border-color); padding: 5px; border-radius: 8px; text-align: center;">
+                        <i class="fas fa-image" style="font-size: 80px; color: var(--text-secondary);"></i>
+                        <p style="margin-top: 10px;">Screenshot preview not available</p>
                     </div>
                 </div>
             `;
@@ -491,91 +487,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Call the init function after a small delay to ensure the DOM is fully loaded
     setTimeout(initScoreBars, 100);
-    
-    // Initialize Threat Intelligence section
-    initThreatIntelligence();
 });
-
-// Initialize Threat Intelligence section
-function initThreatIntelligence() {
-    // Animate the geo bars
-    setTimeout(() => {
-        document.querySelectorAll('.geo-bar .fill').forEach(bar => {
-            const parent = bar.closest('.geo-bar');
-            const value = parent.getAttribute('data-value');
-            bar.style.width = `${value}%`;
-        });
-    }, 500);
-    
-    // Update metrics with animation
-    const updateMetrics = () => {
-        const metrics = [
-            { id: 'detection-rate', min: 98.5, max: 99.2, format: val => val.toFixed(1) + '%' },
-            { id: 'false-positive-rate', min: 0.03, max: 0.08, format: val => val.toFixed(2) + '%' },
-            { id: 'response-time', min: 40, max: 55, format: val => Math.round(val) + 'ms' }
-        ];
-        
-        metrics.forEach(metric => {
-            const element = document.getElementById(metric.id);
-            if (element) {
-                const newValue = metric.min + Math.random() * (metric.max - metric.min);
-                const oldValue = parseFloat(element.textContent);
-                
-                // Determine if this is an improvement or not
-                const trend = element.nextElementSibling;
-                const isPositive = metric.id === 'detection-rate' ? 
-                    newValue > oldValue : newValue < oldValue;
-                
-                if (trend) {
-                    const diff = Math.abs(newValue - oldValue).toFixed(2);
-                    trend.innerHTML = isPositive ? 
-                        `<i class="fas fa-arrow-${metric.id === 'detection-rate' ? 'up' : 'down'}"></i> ${diff}` : 
-                        `<i class="fas fa-arrow-${metric.id === 'detection-rate' ? 'down' : 'up'}"></i> ${diff}`;
-                    
-                    trend.className = isPositive ? 'metric-trend positive' : 'metric-trend negative';
-                }
-                
-                // Animate the value change
-                animateValue(element, oldValue, newValue, 1000, metric.format);
-            }
-        });
-    };
-    
-    // First update after 3 seconds
-    setTimeout(updateMetrics, 3000);
-    
-    // Then update every 30 seconds
-    setInterval(updateMetrics, 30000);
-    
-    // Add hover effects to sector tags
-    document.querySelectorAll('.sector-tag').forEach(tag => {
-        tag.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.05)';
-        });
-        
-        tag.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-        });
-    });
-}
-
-// Helper function to animate value changes
-function animateValue(element, start, end, duration, formatFunc) {
-    let startTime = null;
-    
-    // Default format function if none provided
-    if (!formatFunc) formatFunc = val => val;
-    
-    const step = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        const current = start + progress * (end - start);
-        element.textContent = formatFunc(current);
-        
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    
-    window.requestAnimationFrame(step);
-}

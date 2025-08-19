@@ -1,0 +1,830 @@
+// Dashboard JavaScript - Analysis charts removed
+// Using global functions instead of imports
+
+// Document ready function
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("DOM content loaded in dashboard.js");
+  
+  try {
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Load recent detections data
+    loadRecentDetections();
+    
+    // Log initialization
+    console.log("Dashboard initialization complete");
+    showNotification("Dashboard loaded successfully", "success");
+  } catch (error) {
+    console.error("Error initializing dashboard:", error);
+    showNotification("Error initializing dashboard: " + error.message, "error");
+  }
+});
+
+// Function to set up event listeners
+function setupEventListeners() {
+  console.log("Setting up event listeners");
+
+  // URL check form submission
+  const urlCheckForm = document.getElementById('url-check-form');
+  if (urlCheckForm) {
+    urlCheckForm.addEventListener('submit', handleUrlCheckSubmission);
+    console.log("URL check form listener added");
+  }
+  
+  // Settings form submission
+  const settingsForm = document.getElementById('settings-form');
+  if (settingsForm) {
+    settingsForm.addEventListener('submit', handleSettingsSubmission);
+    console.log("Settings form listener added");
+  }
+  
+  // Dark/light mode toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+    console.log("Theme toggle listener added");
+  }
+  
+  // Export data button - Direct method
+  const exportBtn = document.getElementById('exportBtn');
+  if (exportBtn) {
+    console.log("Found export button:", exportBtn);
+    exportBtn.addEventListener('click', handleExportData);
+    console.log("Export button listener added");
+  } else {
+    console.error("Export button not found");
+  }
+  
+  // Set up delegation for action buttons (Details, Configure, Connect)
+  document.addEventListener('click', function(e) {
+    // Find the button or its icon
+    let target = e.target;
+    let isButton = target.classList.contains('action-button');
+    let isIcon = target.tagName === 'I' && target.parentElement && target.parentElement.classList.contains('action-button');
+    
+    if (isButton || isIcon) {
+      // If clicked on icon, get the parent button
+      const button = isButton ? target : target.parentElement;
+      const buttonText = button.textContent.trim();
+      
+      console.log("Action button clicked:", buttonText);
+      
+      if (buttonText.includes('Details')) {
+        handleDetailsView(e);
+      } else if (buttonText.includes('Configure')) {
+        handleConfigureAPI(e);
+      } else if (buttonText.includes('Connect')) {
+        handleConnectAPI(e);
+      }
+    }
+  });
+  
+  // Update model button - Direct method
+  const updateModelBtn = document.getElementById('updateModelBtn');
+  if (updateModelBtn) {
+    console.log("Found update model button");
+    updateModelBtn.addEventListener('click', handleModelUpdate);
+    console.log("Update model button listener added");
+  } else {
+    console.warn("Update model button not found - may be added dynamically later");
+  }
+  
+  // Time range change
+  const timeRangeSelect = document.getElementById('timeRange');
+  if (timeRangeSelect) {
+    timeRangeSelect.addEventListener('change', function() {
+      console.log("Time range changed to:", this.value);
+      loadDataForTimeRange(this.value);
+    });
+    console.log("Time range select listener added");
+  }
+  
+  console.log("All event listeners set up successfully");
+}
+
+// Function to handle URL check form submission
+async function handleUrlCheckSubmission(event) {
+  event.preventDefault();
+  
+  console.log("URL check form submitted");
+  showNotification("URL check initiated", "info");
+  showLoadingIndicator();
+  
+  try {
+    const urlInput = document.getElementById('url-input');
+    if (!urlInput) {
+      throw new Error("URL input field not found");
+    }
+    
+    const url = urlInput.value.trim();
+    if (!url) {
+      throw new Error("Please enter a URL to check");
+    }
+    
+    console.log("Checking URL:", url);
+    
+    // Simulate URL check (would use ML model in real implementation)
+    setTimeout(() => {
+      const randomScore = Math.random();
+      let status, messageType;
+      
+      if (randomScore < 0.2) {
+        status = "Phishing detected";
+        messageType = "error";
+      } else if (randomScore < 0.4) {
+        status = "Suspicious activity detected";
+        messageType = "warning";
+      } else {
+        status = "URL appears safe";
+        messageType = "success";
+      }
+      
+      hideLoadingIndicator();
+      showNotification(status, messageType);
+      
+      // Add to recent detections (in real implementation)
+      addDetectionToTable({
+        timestamp: new Date(),
+        url: url,
+        score: randomScore.toFixed(2),
+        status: status
+      });
+      
+    }, 1500);
+  } catch (error) {
+    hideLoadingIndicator();
+    showNotification(error.message, "error");
+  }
+}
+
+// Function to handle settings form submission
+function handleSettingsSubmission(event) {
+  event.preventDefault();
+  
+  console.log("Settings form submitted");
+  showLoadingIndicator();
+  
+  try {
+    // Simulate settings update
+    setTimeout(() => {
+      hideLoadingIndicator();
+      showNotification("Settings updated successfully", "success");
+    }, 800);
+  } catch (error) {
+    hideLoadingIndicator();
+    showNotification("Error updating settings: " + error.message, "error");
+  }
+}
+
+// Function to toggle theme
+function toggleTheme() {
+  console.log("Toggle theme requested");
+  
+  const body = document.body;
+  const isDarkMode = body.classList.contains('dark-mode');
+  
+  if (isDarkMode) {
+    body.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light');
+    console.log("Switched to light mode");
+  } else {
+    body.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
+    console.log("Switched to dark mode");
+  }
+  
+  // Update the icon
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    const icon = themeToggle.querySelector('i');
+    if (icon) {
+      if (isDarkMode) {
+        icon.classList.replace('fa-sun', 'fa-moon');
+      } else {
+        icon.classList.replace('fa-moon', 'fa-sun');
+      }
+    }
+  }
+}
+
+// Load data based on selected time range
+function loadDataForTimeRange(timeRange) {
+  console.log("Loading data for time range:", timeRange);
+  showLoadingIndicator();
+  
+  try {
+    // Simulate data loading
+    setTimeout(() => {
+      hideLoadingIndicator();
+      showNotification(`Data loaded for ${timeRange} time range`, "success");
+      
+      // Update stats based on time range
+      updateStatCards(timeRange);
+      
+      // Reload detection table
+      loadRecentDetections(timeRange);
+      
+    }, 1000);
+  } catch (error) {
+    hideLoadingIndicator();
+    showNotification("Error loading data: " + error.message, "error");
+  }
+}
+
+// Update stat cards with new data
+function updateStatCards(timeRange) {
+  console.log("Updating stat cards for time range:", timeRange);
+  
+  // Get multiplier based on time range
+  let multiplier = 1;
+  switch (timeRange) {
+    case 'day': multiplier = 1; break;
+    case 'week': multiplier = 7; break;
+    case 'month': multiplier = 30; break;
+    case 'year': multiplier = 365; break;
+    default: multiplier = 7;
+  }
+  
+  // Update safe count
+  const safeCount = document.getElementById('safe-count');
+  if (safeCount) {
+    safeCount.textContent = Math.floor(25 * multiplier);
+  }
+  
+  // Update warning count
+  const warningCount = document.getElementById('warning-count');
+  if (warningCount) {
+    warningCount.textContent = Math.floor(5 * multiplier);
+  }
+  
+  // Update danger count
+  const dangerCount = document.getElementById('danger-count');
+  if (dangerCount) {
+    dangerCount.textContent = Math.floor(2 * multiplier);
+  }
+  
+  // Update total count
+  const totalCount = document.getElementById('total-count');
+  if (totalCount) {
+    totalCount.textContent = Math.floor(32 * multiplier);
+  }
+}
+
+// Helper function to show notification
+function showNotification(message, type = 'info') {
+  console.log(`Showing notification: ${message} (${type})`);
+  
+  // Get or create notification element
+  let notification = document.getElementById('notification');
+  
+  if (!notification) {
+    console.log("Creating new notification element");
+    notification = document.createElement('div');
+    notification.id = 'notification';
+    document.body.appendChild(notification);
+  }
+  
+  // Create inner content with icon and close button
+  let icon = '';
+  switch (type) {
+    case 'success': icon = '<i class="fas fa-check-circle"></i>'; break;
+    case 'error': icon = '<i class="fas fa-exclamation-circle"></i>'; break;
+    case 'warning': icon = '<i class="fas fa-exclamation-triangle"></i>'; break;
+    case 'info': icon = '<i class="fas fa-info-circle"></i>'; break;
+    default: icon = '<i class="fas fa-bell"></i>';
+  }
+  
+  notification.innerHTML = `
+    <div class="notification-icon">${icon}</div>
+    <div class="notification-message">${message}</div>
+    <div class="notification-close"><i class="fas fa-times"></i></div>
+  `;
+  notification.className = `notification ${type}`;
+  
+  // Add click to dismiss on the close button
+  const closeBtn = notification.querySelector('.notification-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      notification.classList.add('notification-hide');
+      setTimeout(() => {
+        notification.style.display = 'none';
+        notification.classList.remove('notification-hide');
+      }, 300);
+    });
+  }
+  
+  // Display the notification
+  notification.style.display = 'flex';
+  
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    if (notification.style.display !== 'none') {
+      notification.classList.add('notification-hide');
+      setTimeout(() => {
+        notification.style.display = 'none';
+        notification.classList.remove('notification-hide');
+      }, 300);
+    }
+  }, 5000);
+}
+
+// Function to load recent detections
+function loadRecentDetections(timeRange = 'week') {
+  console.log("Loading recent detections for time range:", timeRange);
+  showLoadingIndicator();
+  
+  try {
+    // Simulate loading delay
+    setTimeout(() => {
+      hideLoadingIndicator();
+      
+      const tableBody = document.querySelector('#recentDetectionsTable tbody');
+      if (!tableBody) {
+        console.error("Table body not found");
+        showNotification("Error loading detection data: Table not found", "error");
+        return;
+      }
+      
+      // Clear existing rows
+      tableBody.innerHTML = '';
+      
+      // Generate some sample data based on time range
+      const count = timeRange === 'day' ? 5 : 
+                   timeRange === 'week' ? 10 :
+                   timeRange === 'month' ? 15 : 20;
+      
+      for (let i = 0; i < count; i++) {
+        addSampleDetectionRow(tableBody, i, timeRange);
+      }
+      
+      console.log(`Loaded ${count} detection records`);
+      
+    }, 800);
+  } catch (error) {
+    hideLoadingIndicator();
+    showNotification("Error loading detection data: " + error.message, "error");
+  }
+}
+
+// Helper function to add a sample detection row
+function addSampleDetectionRow(tableBody, index, timeRange) {
+  // Generate a random date based on the time range
+  let date = new Date();
+  let dayOffset = 0;
+  
+  switch (timeRange) {
+    case 'day':
+      dayOffset = Math.floor(Math.random() * 1);
+      break;
+    case 'week':
+      dayOffset = Math.floor(Math.random() * 7);
+      break;
+    case 'month':
+      dayOffset = Math.floor(Math.random() * 30);
+      break;
+    case 'year':
+      dayOffset = Math.floor(Math.random() * 365);
+      break;
+    default:
+      dayOffset = Math.floor(Math.random() * 7);
+  }
+  
+  date.setDate(date.getDate() - dayOffset);
+  
+  // Generate a random score
+  const score = Math.random();
+  
+  // Determine status based on score
+  let status, statusClass;
+  if (score > 0.7) {
+    status = "Phishing";
+    statusClass = "status-danger";
+  } else if (score > 0.4) {
+    status = "Suspicious";
+    statusClass = "status-warning";
+  } else {
+    status = "Safe";
+    statusClass = "status-safe";
+  }
+  
+  // Sample URLs
+  const urls = [
+    "example.com",
+    "secure-login.com",
+    "my-bank-account.com",
+    "amazon-special-offer.net",
+    "facebook-security-check.com",
+    "google.com",
+    "microsoft.com",
+    "apple-id-confirm.org",
+    "paypal-verify.net",
+    "dropbox-share.com"
+  ];
+  
+  // Create row
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${date.toLocaleDateString()}, ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+    <td>${urls[index % urls.length]}</td>
+    <td>${score.toFixed(2)}</td>
+    <td><span class="${statusClass}">${status}</span></td>
+    <td>
+      <button class="action-button">
+        <i class="fas fa-info-circle"></i> Details
+      </button>
+    </td>
+  `;
+  
+  tableBody.appendChild(row);
+}
+
+// Helper function to add a real detection to the table
+function addDetectionToTable(detection) {
+  const tableBody = document.querySelector('#recentDetectionsTable tbody');
+  if (!tableBody) {
+    console.error("Table body not found");
+    return;
+  }
+  
+  // Determine status class based on score or status
+  let statusClass = "";
+  if (typeof detection.score === 'number' || typeof detection.score === 'string') {
+    const numScore = parseFloat(detection.score);
+    if (numScore > 0.7) {
+      statusClass = "status-danger";
+    } else if (numScore > 0.4) {
+      statusClass = "status-warning";
+    } else {
+      statusClass = "status-safe";
+    }
+  } else if (detection.status) {
+    if (detection.status.toLowerCase().includes("phish")) {
+      statusClass = "status-danger";
+    } else if (detection.status.toLowerCase().includes("suspicious")) {
+      statusClass = "status-warning";
+    } else {
+      statusClass = "status-safe";
+    }
+  }
+  
+  // Create new row
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${detection.timestamp.toLocaleDateString()}, ${detection.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+    <td>${detection.url}</td>
+    <td>${detection.score}</td>
+    <td><span class="${statusClass}">${detection.status}</span></td>
+    <td>
+      <button class="action-button">
+        <i class="fas fa-info-circle"></i> Details
+      </button>
+    </td>
+  `;
+  
+  // Add at the top of the table
+  if (tableBody.firstChild) {
+    tableBody.insertBefore(row, tableBody.firstChild);
+  } else {
+    tableBody.appendChild(row);
+  }
+}
+
+// Helper function to show loading indicator
+function showLoadingIndicator() {
+  console.log("Showing loading indicator");
+  
+  // Get or create loader element
+  let loader = document.getElementById('loader');
+  
+  if (!loader) {
+    console.log("Creating new loader element");
+    loader = document.createElement('div');
+    loader.id = 'loader';
+    document.body.appendChild(loader);
+  }
+  
+  // Style the loader
+  Object.assign(loader.style, {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: '9999',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: '5px',
+    padding: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
+  });
+  
+  // Add a spinner if it doesn't exist
+  if (loader.children.length === 0) {
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner';
+    spinner.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+    spinner.style.color = 'white';
+    spinner.style.fontSize = '24px';
+    loader.appendChild(spinner);
+  }
+  
+  // Show with fade-in effect
+  loader.style.opacity = '0';
+  loader.style.display = 'block';
+  setTimeout(() => {
+    loader.style.opacity = '1';
+    loader.style.transition = 'opacity 0.2s ease';
+  }, 10);
+}
+
+// Helper function to hide loading indicator
+function hideLoadingIndicator() {
+  console.log("Hiding loading indicator");
+  
+  const loader = document.getElementById('loader');
+  if (loader) {
+    // Hide with fade-out effect
+    loader.style.opacity = '0';
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 200);
+  } else {
+    console.warn("Loader element not found when trying to hide it");
+  }
+}
+
+// Function to handle export data
+function handleExportData() {
+  console.log("Export data request");
+  showLoadingIndicator();
+  
+  try {
+    // Simulate export process
+    setTimeout(() => {
+      hideLoadingIndicator();
+      showNotification("Data exported successfully. Check your downloads folder.", "success");
+      
+      // In a real implementation, this would generate a CSV or JSON file
+      // and trigger a download using the Blob API and createObjectURL
+    }, 1000);
+  } catch (error) {
+    hideLoadingIndicator();
+    showNotification("Error exporting data: " + error.message, "error");
+  }
+}
+
+// Function to handle details view
+function handleDetailsView(event) {
+  // Find the clicked row
+  let target = event.target;
+  while (target && target.nodeName !== 'TR') {
+    target = target.parentNode;
+  }
+  
+  if (!target) {
+    console.error("Could not find parent row");
+    showNotification("Error: Could not find detection details", "error");
+    return;
+  }
+  
+  console.log("Details view requested for row:", target);
+  showLoadingIndicator();
+  
+  // Extract URL from the row (2nd cell)
+  const cells = target.getElementsByTagName('td');
+  if (cells.length < 2) {
+    hideLoadingIndicator();
+    showNotification("Error: Invalid detection data", "error");
+    return;
+  }
+  
+  const url = cells[1].textContent;
+  console.log("Getting details for URL:", url);
+  
+  // Simulate loading details
+  setTimeout(() => {
+    hideLoadingIndicator();
+    
+    // Show a modal dialog with details (could create this dynamically)
+    const detailsContent = `
+      <h3>Detection Details for ${url}</h3>
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-label">URL Risk Score:</span>
+          <span class="detail-value">${cells[2].textContent}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Detection Status:</span>
+          <span class="detail-value">${cells[3].textContent}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Detection Time:</span>
+          <span class="detail-value">${cells[0].textContent}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Risk Indicators:</span>
+          <ul class="detail-list">
+            <li>Domain age: 3 days</li>
+            <li>SSL certificate: Not valid</li>
+            <li>Suspicious redirects: Yes</li>
+            <li>Known malicious patterns: 2</li>
+          </ul>
+        </div>
+      </div>
+    `;
+    
+    showModal("Detection Details", detailsContent);
+  }, 800);
+}
+
+// Function to handle API configuration
+function handleConfigureAPI(event) {
+  console.log("Configure API request");
+  
+  // Show a modal with configuration form
+  const configContent = `
+    <form id="api-config-form">
+      <div class="form-group">
+        <label for="api-key">API Key:</label>
+        <input type="text" id="api-key" name="apiKey" placeholder="Enter your API key">
+      </div>
+      <div class="form-group">
+        <label for="api-endpoint">API Endpoint:</label>
+        <input type="text" id="api-endpoint" name="apiEndpoint" placeholder="https://api.example.com/v1">
+      </div>
+      <div class="form-group">
+        <label for="api-type">Service Type:</label>
+        <select id="api-type" name="apiType">
+          <option value="virustotal">VirusTotal</option>
+          <option value="phishtank">PhishTank</option>
+          <option value="safebrowsing">Google Safe Browsing</option>
+          <option value="custom">Custom API</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="primary-button">Save Configuration</button>
+        <button type="button" class="secondary-button" id="cancel-config">Cancel</button>
+      </div>
+    </form>
+  `;
+  
+  showModal("Configure API Integration", configContent);
+  
+  // Set up event listeners for the form
+  setTimeout(() => {
+    const form = document.getElementById('api-config-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        showNotification("API configured successfully", "success");
+        hideModal();
+      });
+    }
+    
+    const cancelBtn = document.getElementById('cancel-config');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', hideModal);
+    }
+  }, 100);
+}
+
+// Function to handle API connection
+function handleConnectAPI(event) {
+  console.log("Connect API request");
+  showLoadingIndicator();
+  
+  // Simulate API connection attempt
+  setTimeout(() => {
+    hideLoadingIndicator();
+    
+    // Randomly succeed or fail for demo purposes
+    const success = Math.random() > 0.3;
+    
+    if (success) {
+      showNotification("Successfully connected to API", "success");
+    } else {
+      showNotification("Failed to connect to API. Check your configuration and try again.", "error");
+    }
+  }, 1500);
+}
+
+// Function to handle model update
+function handleModelUpdate() {
+  console.log("Model update requested");
+  showLoadingIndicator();
+  
+  try {
+    // Update the button UI
+    const updateBtn = document.getElementById('updateModelBtn');
+    if (updateBtn) {
+      updateBtn.disabled = true;
+      updateBtn.innerHTML = '<i class="fas fa-sync fa-spin"></i> Updating...';
+    }
+    
+    // Simulate model update process
+    setTimeout(() => {
+      hideLoadingIndicator();
+      
+      if (updateBtn) {
+        updateBtn.disabled = false;
+        updateBtn.innerHTML = '<i class="fas fa-sync"></i> Update Model';
+      }
+      
+      showNotification("Machine learning model updated successfully!", "success");
+    }, 3000);
+  } catch (error) {
+    hideLoadingIndicator();
+    showNotification("Error updating model: " + error.message, "error");
+    
+    const updateBtn = document.getElementById('updateModelBtn');
+    if (updateBtn) {
+      updateBtn.disabled = false;
+      updateBtn.innerHTML = '<i class="fas fa-sync"></i> Update Model';
+    }
+  }
+}
+
+// Helper function to show a modal dialog
+function showModal(title, content) {
+  console.log("Showing modal:", title);
+  
+  // Get or create modal container
+  let modal = document.getElementById('modal-container');
+  
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'modal-container';
+    document.body.appendChild(modal);
+  }
+  
+  // Create modal content
+  modal.innerHTML = `
+    <div class="modal">
+      <div class="modal-header">
+        <h3>${title}</h3>
+        <button class="modal-close"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-content">
+        ${content}
+      </div>
+    </div>
+    <div class="modal-overlay"></div>
+  `;
+  
+  // Style the modal (in case CSS is not loaded)
+  const modalElement = modal.querySelector('.modal');
+  if (modalElement) {
+    Object.assign(modalElement.style, {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: '10000',
+      backgroundColor: 'var(--background-color, #fff)',
+      borderRadius: '8px',
+      boxShadow: '0 5px 25px rgba(0, 0, 0, 0.2)',
+      width: '80%',
+      maxWidth: '600px',
+      maxHeight: '90vh',
+      overflow: 'auto'
+    });
+  }
+  
+  const overlay = modal.querySelector('.modal-overlay');
+  if (overlay) {
+    Object.assign(overlay.style, {
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      right: '0',
+      bottom: '0',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      zIndex: '9999'
+    });
+  }
+  
+  // Show the modal
+  modal.style.display = 'block';
+  
+  // Add event listeners for closing
+  const closeBtn = modal.querySelector('.modal-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', hideModal);
+  }
+  
+  if (overlay) {
+    overlay.addEventListener('click', hideModal);
+  }
+}
+
+// Helper function to hide modal
+function hideModal() {
+  console.log("Hiding modal");
+  
+  const modal = document.getElementById('modal-container');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}

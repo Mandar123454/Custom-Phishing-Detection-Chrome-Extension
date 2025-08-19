@@ -33,38 +33,6 @@ The extension follows a modular architecture with the following main components:
 
 The extension uses Chrome's Extension API to interact with browser functions while maintaining a separation of concerns between different components.
 
-## Screenshots Analysis
-
-### Dashboard Main Views
-![Example 1](./Screenshots/Example%201.png)
-![Example 2](./Screenshots/Example%202.png)
-![Example 3](./Screenshots/Example%203.png)
-![Time Range](./Screenshots/Time%20Range.png)
-
-### Extension Popup
-![Pop up](./Screenshots/Pop%20up.png)
-![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
-
-### Extension Icon
-![Extension](./Screenshots/Extension.png)
-
----
-
-All screenshots above are from the current version and reflect the deployed dashboard and popup.
-2. **API Security**: Uses secure HTTPS for all API communications
-3. **Data Minimization**: Only sends necessary information to external services
-4. **Permission Control**: Requests only required permissions in manifest.json
-5. **Update Verification**: Validates model updates before installation
-
-## Performance Optimization
-
-To ensure minimal impact on browsing experience:
-
-1. **Lazy Loading**: Defers loading of non-critical components
-2. **Incremental Processing**: Analyzes page content incrementally
-3. **Caching**: Stores recent results to avoid redundant processing
-4. **Efficient DOM Traversal**: Uses optimized selectors and traversal methods
-5. **Background Processing**: Performs intensive operations in the background script
 
 ## Screenshots Analysis
 

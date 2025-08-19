@@ -41,9 +41,7 @@ This extension analyzes websites for potential phishing attempts through a multi
 When a user visits a website, the extension immediately analyzes the URL structure for:
    - Suspicious TLDs (e.g., unusual country codes often used in phishing)
 
-   # Advanced Phishing Detection Chrome Extension
 
-   A Chrome extension that uses machine learning, API integration, and advanced heuristics to detect and alert users about potential phishing websites.
 
    ## Live Demo
 

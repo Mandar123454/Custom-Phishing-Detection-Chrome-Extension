@@ -42,6 +42,7 @@ The extension uses Chrome's Extension API to interact with browser functions whi
 ![Example 2](./Screenshots/Example%202.png)
 ![Example 3](./Screenshots/Example%203.png)
 ![Time Range](./Screenshots/Time%20Range.png)
+
 3. **Detection Summary**: Visual representation of score distribution across all detections
 4. **Recent Detections Table**: Chronological listing of recently analyzed URLs with:
    - Timestamp

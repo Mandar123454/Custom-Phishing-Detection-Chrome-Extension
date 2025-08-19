@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Detection Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1><i class="fas fa-shield-alt icon"></i> Phishing Detection Dashboard</h1>
+            <div class="header-right">
+                <div class="date-range">
+                    <span>Time Range:</span>
+                    <select id="timeRange">
+                        <option value="day">Last 24 Hours</option>
+                        <option value="week" selected>Last 7 Days</option>
+                        <option value="month">Last 30 Days</option>
+                        <option value="year">Last Year</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats">
+            <div class="stat-card safe">
+                <h3><i class="fas fa-check-circle"></i> Safe Sites</h3>
+                <div class="stat-value">176</div>
+            </div>
+            <div class="stat-card warning">
+                <h3><i class="fas fa-exclamation-triangle"></i> Suspicious Sites</h3>
+                <div class="stat-value">32</div>
+            </div>
+            <div class="stat-card danger">
+                <h3><i class="fas fa-skull-crossbones"></i> Phishing Sites</h3>
+                <div class="stat-value">14</div>
+            </div>
+            <div class="stat-card">
+                <h3><i class="fas fa-shield-alt"></i> Protection Rate</h3>
+                <div class="stat-value">98.2%</div>
+            </div>
+        </section>
+
+        <!-- Detection Summary -->
+        <div class="detection-summary">
+            <h3>Overall Detection Summary</h3>
+            <div class="score-distribution">
+                <div class="score-bar safe" style="width: 80%;"></div>
+                <div class="score-bar warning" style="width: 14%;"></div>
+                <div class="score-bar danger" style="width: 6%;"></div>
+            </div>
+            <div class="score-legend">
+                <span>0</span>
+                <span>25</span>
+                <span>50</span>
+                <span>75</span>
+                <span>100</span>
+            </div>
+        </div>
+
+        <!-- Detection Trends -->
+        <section class="section">
+            <h2><i class="fas fa-chart-line icon"></i> Detection Trends</h2>
+            <div class="chart-container">
+                <canvas id="detectionTrendsChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Feature Importance -->
+        <section class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar icon"></i> Feature Importance</h2>
+            </div>
+            <div class="chart-container half-height">
+                <canvas id="featureImportanceChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Recent Detections Table -->
+        <section class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-history icon"></i> Recent Detections</h2>
+                <button id="exportBtn" class="action-button">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+            </div>
+            <div class="data-table-container">
+                <table class="data-table" id="recentDetectionsTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>URL</th>
+                            <th>Detection Score</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Today, 14:32</td>
+                            <td>secure-bankofamerica.com.phish.co</td>
+                            <td>0.96</td>
+                            <td><span class="status-danger">Phishing</span></td>
+                            <td>
+                                <button class="action-button">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Today, 12:17</td>
+                            <td>amazon-security.tk</td>
+                            <td>0.87</td>
+                            <td><span class="status-danger">Phishing</span></td>
+                            <td>
+                                <button class="action-button">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Today, 10:05</td>
+                            <td>docs.google.com</td>
+                            <td>0.02</td>
+                            <td><span class="status-safe">Safe</span></td>
+                            <td>
+                                <button class="action-button">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Yesterday, 18:45</td>
+                            <td>verify-paypal-account.net</td>
+                            <td>0.91</td>
+                            <td><span class="status-danger">Phishing</span></td>
+                            <td>
+                                <button class="action-button">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Yesterday, 15:20</td>
+                            <td>chase-secure-login.net.co</td>
+                            <td>0.89</td>
+                            <td><span class="status-danger">Phishing</span></td>
+                            <td>
+                                <button class="action-button">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- API Integration Section -->
+        <section class="section">
+            <h2><i class="fas fa-plug icon"></i> API Integration</h2>
+            <div class="api-integration-section">
+                <div class="api-list">
+                    <div class="api-card">
+                        <div class="status-indicator connected"></div>
+                        <h4>Google Safe Browsing</h4>
+                        <p>Uses Google's database to check URLs against known phishing sites.</p>
+                        <button class="action-button">
+                            <i class="fas fa-cog"></i> Configure
+                        </button>
+                    </div>
+                    <div class="api-card">
+                        <div class="status-indicator connected"></div>
+                        <h4>VirusTotal</h4>
+                        <p>Analyzes suspicious URLs using multiple security engines.</p>
+                        <button class="action-button">
+                            <i class="fas fa-cog"></i> Configure
+                        </button>
+                    </div>
+                    <div class="api-card">
+                        <div class="status-indicator connected"></div>
+                        <h4>PhishTank</h4>
+                        <p>Community-driven database of verified phishing URLs.</p>
+                        <button class="action-button">
+                            <i class="fas fa-cog"></i> Configure
+                        </button>
+                    </div>
+                    <div class="api-card">
+                        <div class="status-indicator disconnected"></div>
+                        <h4>Custom API</h4>
+                        <p>Connect your own phishing detection service or database.</p>
+                        <button class="action-button">
+                            <i class="fas fa-plus"></i> Connect
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ML Model Status -->
+        <section class="section">
+            <h2><i class="fas fa-brain icon"></i> ML Model Status</h2>
+            <div class="model-status-card">
+                <div class="model-info">
+                    <div class="model-details">
+                        <p><strong>Current Model:</strong> PhishGuard v2.3</p>
+                        <p><strong>Last Updated:</strong> 3 days ago</p>
+                        <p><strong>Detection Accuracy:</strong> 98.2%</p>
+                        <p><strong>Features:</strong> URL analysis, content inspection, domain age</p>
+                    </div>
+                    <button id="updateModelBtn" class="primary-button">
+                        <i class="fas fa-sync"></i> Update Model
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>

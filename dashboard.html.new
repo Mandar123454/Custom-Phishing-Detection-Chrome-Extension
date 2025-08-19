@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Phishing Detection Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-left">
+        <h1><i class="fas fa-shield-alt icon"></i>Phishing Detection Dashboard</h1>
+      </div>
+      <div class="header-right">
+        <div class="date-range">
+          <span>Time Range:</span>
+          <select id="timeRange">
+            <option value="day">Last 24 Hours</option>
+            <option value="week" selected>Last Week</option>
+            <option value="month">Last Month</option>
+            <option value="all">All Time</option>
+          </select>
+        </div>
+      </div>
+    </header>
+    
+    <div class="stats">
+      <div class="stat-card safe">
+        <h3><i class="fas fa-check-circle"></i> Safe Sites</h3>
+        <div class="stat-value" id="safeSitesCount">42</div>
+      </div>
+      
+      <div class="stat-card warning">
+        <h3><i class="fas fa-exclamation-triangle"></i> Suspicious Sites</h3>
+        <div class="stat-value" id="suspiciousSitesCount">15</div>
+      </div>
+      
+      <div class="stat-card danger">
+        <h3><i class="fas fa-ban"></i> Dangerous Sites</h3>
+        <div class="stat-value" id="dangerousSitesCount">7</div>
+      </div>
+      
+      <div class="stat-card">
+        <h3><i class="fas fa-search"></i> Total Scans</h3>
+        <div class="stat-value" id="totalScansCount">64</div>
+      </div>
+    </div>
+
+    <div class="detection-summary">
+      <div style="width: 100%;">
+        <h3>Score Distribution</h3>
+        <div class="score-distribution">
+          <div class="score-bar safe" style="width: 70%;"></div>
+          <div class="score-bar warning" style="width: 20%;"></div>
+          <div class="score-bar danger" style="width: 10%;"></div>
+        </div>
+        <div class="score-legend">
+          <span>0</span>
+          <span>50</span>
+          <span>100</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-header">
+        <h2><i class="fas fa-chart-line icon"></i> Detection Trends</h2>
+        <button class="action-button" id="exportTrendData"><i class="fas fa-download"></i> Export</button>
+      </div>
+      <div class="chart-container">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-header">
+        <h2><i class="fas fa-exclamation-circle icon"></i> Top Threat Indicators</h2>
+        <button class="action-button" id="refreshThreatData"><i class="fas fa-sync"></i> Refresh</button>
+      </div>
+      <div class="chart-container half-height">
+        <canvas id="topThreatsChart"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2><i class="fas fa-history icon"></i> Recent Detections</h2>
+        <button class="action-button" id="exportDetectionData"><i class="fas fa-file-export"></i> Export</button>
+      </div>
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>DATE/TIME</th>
+              <th>DOMAIN</th>
+              <th>SCORE</th>
+              <th>STATUS</th>
+              <th>THREAT INDICATORS</th>
+            </tr>
+          </thead>
+          <tbody id="detectionsTableBody">
+            <!-- Sample data, will be replaced by JavaScript -->
+            <tr>
+              <td>2025-08-19 14:32</td>
+              <td>example.com</td>
+              <td>85/100</td>
+              <td><span class="status-safe">Safe</span></td>
+              <td>
+                <span class="tag green">HTTPS</span>
+                <span class="tag green">Valid Certificate</span>
+              </td>
+            </tr>
+            <tr>
+              <td>2025-08-19 13:15</td>
+              <td>suspicious-site.xyz</td>
+              <td>45/100</td>
+              <td><span class="status-warning">Suspicious</span></td>
+              <td>
+                <span class="tag yellow">Suspicious TLD</span>
+                <span class="tag yellow">Login Form</span>
+              </td>
+            </tr>
+            <tr>
+              <td>2025-08-19 12:03</td>
+              <td>fake-login.tk</td>
+              <td>15/100</td>
+              <td><span class="status-danger">Dangerous</span></td>
+              <td>
+                <span class="tag red">Suspicious Domain</span>
+                <span class="tag red">No HTTPS</span>
+                <span class="tag red">Password Field</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-cogs icon"></i> Machine Learning Model</h2>
+      <div class="model-status-card">
+        <div>
+          <h3>TensorFlow.js Model Status</h3>
+          <p>The machine learning model enhances detection accuracy by analyzing multiple features of websites to identify sophisticated phishing attempts.</p>
+        </div>
+        <div class="model-info">
+          <div class="model-details">
+            <p><strong>Model Version:</strong> <span id="modelVersion">1.0</span></p>
+            <p><strong>Last Updated:</strong> <span id="modelLastUpdated">2025-08-15</span></p>
+            <p><strong>Detection Accuracy:</strong> <span id="modelAccuracy">94.7%</span></p>
+          </div>
+          <div>
+            <button class="primary-button" id="updateModel"><i class="fas fa-sync"></i> Update Model</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2><i class="fas fa-plug icon"></i> API Integrations</h2>
+      <div class="api-integration-section">
+        <div class="api-list">
+          <div class="api-card">
+            <div class="status-indicator disconnected"></div>
+            <h4>Google Safe Browsing</h4>
+            <p>Check URLs against Google's database of unsafe web resources</p>
+            <button class="primary-button" id="connectGoogleAPI">Connect</button>
+          </div>
+          <div class="api-card">
+            <div class="status-indicator disconnected"></div>
+            <h4>VirusTotal</h4>
+            <p>Analyze suspicious URLs and domains</p>
+            <button class="primary-button" id="connectVirusTotalAPI">Connect</button>
+          </div>
+          <div class="api-card">
+            <div class="status-indicator disconnected"></div>
+            <h4>PhishTank</h4>
+            <p>Access community-verified phishing URL database</p>
+            <button class="primary-button" id="connectPhishTankAPI">Connect</button>
+          </div>
+          <div class="api-card">
+            <div class="status-indicator disconnected"></div>
+            <h4>WHOIS API</h4>
+            <p>Verify domain registration information</p>
+            <button class="primary-button" id="connectWhoisAPI">Connect</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="dashboard.js" type="module"></script>
+</body>
+</html>

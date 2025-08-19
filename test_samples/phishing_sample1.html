@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Login - Test Sample</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #1877f2;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      background-color: #1877f2;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #166fe5;
+    }
+    .forgot {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .forgot a {
+      color: #1877f2;
+      text-decoration: none;
+    }
+    .warning {
+      text-align: center;
+      margin-top: 20px;
+      color: #ff0000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Facebok Login</h2> <!-- Intentional typo for testing -->
+    <form>
+      <input type="text" placeholder="Email or phone number" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Log In</button>
+    </form>
+    <div class="forgot">
+      <a href="#">Forgotten password?</a>
+    </div>
+    <div class="warning">
+      THIS IS A TEST PAGE FOR EDUCATIONAL PURPOSES ONLY
+    </div>
+  </div>
+</body>
+</html>

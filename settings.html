@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phishing Detection Settings</title>
+  <meta charset="utf-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    h2 {
+      color: #555;
+      margin: 20px 0 10px 0;
+      font-size: 18px;
+    }
+    
+    .section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .option-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .slider-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    
+    .slider {
+      flex-grow: 1;
+      height: 5px;
+      border-radius: 5px;
+      background: #ddd;
+      margin: 0 15px;
+    }
+    
+    .slider-value {
+      width: 40px;
+      text-align: center;
+    }
+    
+    button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    
+    button:hover {
+      background-color: #0069d9;
+    }
+    
+    button.danger {
+      background-color: #dc3545;
+    }
+    
+    button.danger:hover {
+      background-color: #c82333;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+    
+    .whitelist {
+      margin-top: 15px;
+    }
+    
+    .whitelist-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 15px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+    
+    .whitelist-actions {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .whitelist-actions button {
+      padding: 3px 8px;
+      font-size: 12px;
+    }
+    
+    .add-whitelist {
+      display: flex;
+      margin-top: 10px;
+      gap: 10px;
+    }
+    
+    .add-whitelist input {
+      flex-grow: 1;
+    }
+    
+    .status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .status.success {
+      background-color: #d4edda;
+      color: #155724;
+      display: block;
+    }
+    
+    .status.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+    
+    /* API Integration styles */
+    .api-section {
+      background-color: #f9f9f9;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .api-section h3 {
+      margin-top: 0;
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .api-key-field {
+      margin-top: 10px;
+      margin-left: 20px;
+    }
+    
+    .helper-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    .helper-text a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    
+    .helper-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Phishing Detection Settings</h1>
+    
+    <div id="statusMessage" class="status"></div>
+    
+    <div class="section">
+      <h2>General Settings</h2>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="enableExtension" checked>
+          Enable phishing detection
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="showNotifications" checked>
+          Show notifications for detected threats
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="blockHighRiskSites">
+          Automatically block high-risk sites
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="scanOnLoad" checked>
+          Scan pages automatically when they load
+        </label>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Detection Sensitivity</h2>
+      
+      <div class="option-group">
+        <label for="sensitivityLevel">Overall Sensitivity:</label>
+        <div class="slider-container">
+          <span>Low</span>
+          <input type="range" min="1" max="10" value="7" class="slider" id="sensitivityLevel">
+          <span>High</span>
+          <span class="slider-value" id="sensitivityValue">7</span>
+        </div>
+      </div>
+      
+      <div class="option-group">
+        <label for="riskThreshold">Minimum Risk Score for Warning:</label>
+        <div class="slider-container">
+          <span>30</span>
+          <input type="range" min="30" max="70" value="40" class="slider" id="riskThreshold">
+          <span>70</span>
+          <span class="slider-value" id="riskThresholdValue">40</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Detection Features</h2>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="checkDomain" checked>
+          Analyze domain characteristics
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="checkUrl" checked>
+          Analyze URL patterns
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="checkContent" checked>
+          Analyze page content
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="checkForms" checked>
+          Check for suspicious forms
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="checkSSL" checked>
+          Verify SSL certificates
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="useEnhancedDetection" checked>
+          Use enhanced ML-powered detection
+        </label>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>API Integration</h2>
+      <p>Integrate with external APIs for improved phishing detection.</p>
+      
+      <div class="api-section">
+        <h3>Google Safe Browsing API</h3>
+        <div class="option-group">
+          <label>
+            <input type="checkbox" id="enableGoogleSafeBrowsing">
+            Enable Google Safe Browsing API
+          </label>
+        </div>
+        <div class="option-group api-key-field">
+          <label for="googleSafeBrowsingKey">API Key:</label>
+          <input type="text" id="googleSafeBrowsingKey" placeholder="Enter your Google Safe Browsing API key">
+          <p class="helper-text">Get a key from the <a href="https://console.cloud.google.com/apis/library/safebrowsing.googleapis.com" target="_blank">Google Cloud Console</a></p>
+        </div>
+      </div>
+      
+      <div class="api-section">
+        <h3>VirusTotal API</h3>
+        <div class="option-group">
+          <label>
+            <input type="checkbox" id="enableVirusTotal">
+            Enable VirusTotal API
+          </label>
+        </div>
+        <div class="option-group api-key-field">
+          <label for="virusTotalKey">API Key:</label>
+          <input type="text" id="virusTotalKey" placeholder="Enter your VirusTotal API key">
+          <p class="helper-text">Get a key from the <a href="https://www.virustotal.com/gui/join-us" target="_blank">VirusTotal website</a></p>
+        </div>
+      </div>
+      
+      <div class="api-section">
+        <h3>PhishTank API</h3>
+        <div class="option-group">
+          <label>
+            <input type="checkbox" id="enablePhishTank">
+            Enable PhishTank API
+          </label>
+        </div>
+        <div class="option-group api-key-field">
+          <label for="phishTankKey">API Key:</label>
+          <input type="text" id="phishTankKey" placeholder="Enter your PhishTank API key">
+          <p class="helper-text">Get a key from the <a href="https://www.phishtank.com/api_register.php" target="_blank">PhishTank website</a></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Trusted Domains Whitelist</h2>
+      <p>Sites in this list will not be checked for phishing.</p>
+      
+      <div class="whitelist" id="whitelistContainer">
+        <!-- Whitelist items will be inserted here by JavaScript -->
+        <div class="whitelist-item">
+          <span>example.com</span>
+          <div class="whitelist-actions">
+            <button class="danger">Remove</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="add-whitelist">
+        <input type="text" id="newDomain" placeholder="Enter domain to whitelist (e.g., example.com)">
+        <button id="addDomain">Add</button>
+      </div>
+      
+      <div class="buttons">
+        <button id="resetWhitelist" class="danger">Reset to Default</button>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Data Management</h2>
+      
+      <div class="option-group">
+        <label>
+          <input type="checkbox" id="saveHistory" checked>
+          Save scan history
+        </label>
+      </div>
+      
+      <div class="option-group">
+        <label for="historyLimit">Maximum scan history entries:</label>
+        <input type="number" id="historyLimit" min="5" max="100" value="20">
+      </div>
+      
+      <div class="buttons">
+        <button id="clearHistory" class="danger">Clear Scan History</button>
+      </div>
+    </div>
+    
+    <div class="buttons">
+      <button id="resetSettings" class="danger">Reset All Settings</button>
+      <button id="saveSettings">Save Settings</button>
+    </div>
+  </div>
+  
+  <script src="settings.js"></script>
+</body>
+</html>

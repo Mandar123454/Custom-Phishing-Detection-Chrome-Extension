@@ -189,9 +189,7 @@ This extension is for educational purposes only. While it attempts to detect phi
 
 ## Contributors
 
-- Security Researcher Team
-- ML Model Development Team
-- UI/UX Design Team
+- Mandar Kajbaje
 
 ## Recent Updates
 

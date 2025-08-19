@@ -1,4 +1,9 @@
+
 # Custom Phishing Detection Chrome Extension: Technical Documentation
+
+## Live Dashboard
+
+Try the dashboard live: [https://customphishingdetection.netlify.app/dashboard.html](https://customphishingdetection.netlify.app/dashboard.html)
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -28,127 +33,24 @@ The extension follows a modular architecture with the following main components:
 
 The extension uses Chrome's Extension API to interact with browser functions while maintaining a separation of concerns between different components.
 
-## Core Components
+## Screenshots Analysis
 
-### Background Service Worker (`background.js`)
+### Dashboard Main Views
+![Example 1](./Screenshots/Example%201.png)
+![Example 2](./Screenshots/Example%202.png)
+![Example 3](./Screenshots/Example%203.png)
+![Time Range](./Screenshots/Time%20Range.png)
 
-The background script serves as the central coordinator of the extension, handling:
-- URL monitoring through the `chrome.tabs.onUpdated` event
-- Communication with content scripts via `chrome.runtime.sendMessage`
-- Storage management through `chrome.storage.local`
-- API request coordination
-- Browser notification management
+### Extension Popup
+![Pop up](./Screenshots/Pop%20up.png)
+![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
 
-### Content Script (`content.js`)
+### Extension Icon
+![Extension](./Screenshots/Extension.png)
 
-The content script is injected into each webpage to analyze its content:
-- DOM scanning for login forms and sensitive input fields
-- Text extraction for keyword analysis
-- Meta tag inspection
-- URL pattern matching
-- Feature extraction for ML model input
+---
 
-### Feature Extraction (`feature_extractor.js`)
-
-This component extracts relevant features from URLs and page content:
-- URL length, subdomain count, TLD analysis
-- Special character frequency
-- Presence of IP addresses
-- SSL certificate validation
-- Form submission target analysis
-- External resource loading patterns
-
-### Machine Learning Integration (`ml_model.js`)
-
-Handles the loading, execution, and interpretation of the TensorFlow.js model:
-- Model loading and initialization
-- Feature normalization
-- Prediction generation
-- Confidence score calculation
-- Model versioning and updates
-
-## UI Components
-
-### Popup Interface (`popup.html`, `popup.js`, `popup.css`)
-
-The popup interface provides immediate feedback when a user clicks on the extension icon:
-- Safety score display
-- Risk indicators with color-coding
-- Quick actions (whitelist, report false positive)
-- Recent scan history
-- Links to the full dashboard
-
-### Dashboard (`dashboard.html`, `dashboard.js`, `dashboard.css`)
-
-The dashboard offers comprehensive analytics and management tools:
-- Historical data visualization
-- Detection statistics
-- Detailed scan reports
-- API configuration
-- Model updating
-- Export capabilities
-
-## Machine Learning Model
-
-The extension uses a supervised learning model trained on a dataset of known phishing and legitimate URLs:
-
-- **Model Type**: Binary classification
-- **Framework**: TensorFlow.js
-- **Features**: 28 numerical features extracted from URLs and content
-- **Accuracy**: ~98.2% (PhishGuard v2.3) to 99.1% (PhishGuard v2.4)
-- **Model Size**: Optimized for in-browser execution (~1.2MB)
-
-The model provides not only classification results but also confidence scores that help users understand the reliability of predictions.
-
-## API Integrations
-
-The extension integrates with multiple external APIs to enhance detection capabilities:
-
-### Google Safe Browsing API
-- Checks URLs against Google's database of known unsafe sites
-- Provides binary classification (safe/unsafe)
-- Requires API key configuration
-
-### VirusTotal API
-- Offers comprehensive URL and domain reputation data
-- Returns multiple security vendors' verdicts
-- Has rate limits that require careful request management
-
-### PhishTank API
-- Community-driven phishing URL database
-- Provides verified phishing reports
-- Open source integration options
-
-## Dashboard Analysis
-
-The dashboard serves as the command center for the extension, offering detailed insights into browsing protection:
-
-### Statistical Overview
-- Detection counts by category (safe, suspicious, phishing)
-- Protection rate calculation
-- Timeline visualization of detection events
-
-### Recent Detections Table
-- Chronological list of scanned URLs
-- Detection scores and status
-- Detailed view options for each entry
-- Export functionality for further analysis
-
-### Model Management
-- Current model information display
-- Update mechanism for new model versions
-- Performance metrics tracking
-
-### API Configuration
-- Connection status indicators
-- Configuration interfaces for API keys
-- Testing capabilities
-
-## Security Considerations
-
-The extension implements several security measures to protect user data:
-
-1. **Local Processing**: Prioritizes local processing of sensitive data when possible
+All screenshots above are from the current version and reflect the deployed dashboard and popup.
 2. **API Security**: Uses secure HTTPS for all API communications
 3. **Data Minimization**: Only sends necessary information to external services
 4. **Permission Control**: Requests only required permissions in manifest.json

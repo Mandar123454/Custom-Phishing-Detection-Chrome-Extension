@@ -40,148 +40,69 @@ This extension analyzes websites for potential phishing attempts through a multi
 ### 1. Initial URL Analysis
 When a user visits a website, the extension immediately analyzes the URL structure for:
    - Suspicious TLDs (e.g., unusual country codes often used in phishing)
-   - Domain age verification (newer domains warrant higher scrutiny)
-   - Misspellings of popular domains (typosquatting detection)
-   - Presence of IP addresses instead of domain names
-   - Excessive subdomain usage
-   - URL length and entropy assessment
 
-### 2. Content and DOM Analysis
-Once the page loads, the extension examines:
-   - Login form detection and destination analysis
-   - Password field identification and context
-   - Presence of suspicious keywords and phrases
-   - Analysis of external resource loading patterns
-   - Image and favicon comparison with known brands
+   # Advanced Phishing Detection Chrome Extension
 
-### 3. Machine Learning Classification
-The extracted features are processed through:
-   - Feature normalization and preparation
-   - TensorFlow.js model inference
-   - Confidence score calculation
-   - Decision threshold application
+   A Chrome extension that uses machine learning, API integration, and advanced heuristics to detect and alert users about potential phishing websites.
 
-### 4. API Verification
-For uncertain cases, external APIs provide additional context:
-   - Google Safe Browsing API check
-   - VirusTotal reputation lookup
-   - PhishTank database comparison
+   ## Live Demo
 
-### 5. Result Presentation
-Results are presented to the user through:
-   - Color-coded risk indicators
-   - Detailed explanation of detection reasons
-   - Confidence score transparency
-   - Recommended actions
+   Try the dashboard live: [https://customphishingdetection.netlify.app/dashboard.html](https://customphishingdetection.netlify.app/dashboard.html)
 
-## Installation Instructions
+   ## Features
 
-1. Download or clone this repository
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" by toggling the switch in the top-right corner
-4. Click "Load unpacked" and select the extension directory
-5. The extension should now appear in your Chrome toolbar
+   ### Core Detection Features
+   - **URL Analysis**: Examines domain names, subdomains, TLDs, and URL patterns for suspicious characteristics
+   - **Content Analysis**: Scans page content for suspicious forms, input fields, and text patterns
+   - **SSL Certificate Verification**: Checks for secure connections and certificate validity
+   - **Machine Learning Model**: Uses TensorFlow.js to provide intelligent phishing detection
+   - **External API Integration**: Connects to security services for enhanced detection
+   - **Real-time Protection**: Automatically scans pages as you browse
+   - **Domain Whitelist**: Allows you to mark trusted websites to avoid false positives
 
-## Usage
+   ### User Interface
+   - Clean, intuitive popup interface
+   - Comprehensive dashboard with statistics and recent scans
+   - Detailed scan results with risk indicators
+   - Dark mode support
+   - Customizable settings
 
-### Basic Usage
-1. The extension automatically scans websites as you browse
-2. A color-coded icon indicates the safety status of the current site
-3. Click on the extension icon to view detailed analysis
+   ## Screenshots
 
-### Dashboard Access
-1. Click on the extension icon
-2. Select "Open Dashboard" from the popup menu
-3. Explore comprehensive statistics and detection history
+   ### Dashboard Main Views
+   ![Example 1](./Screenshots/Example%201.png)
+   ![Example 2](./Screenshots/Example%202.png)
+   ![Example 3](./Screenshots/Example%203.png)
+   ![Time Range](./Screenshots/Time%20Range.png)
 
-### Customization
-1. Access Settings from the dashboard
-2. Adjust detection sensitivity
-3. Configure API connections
-4. Manage whitelist entries
+   ### Extension Popup
+   ![Pop up](./Screenshots/Pop%20up.png)
+   ![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
 
-## Dashboard Features
+   ### Extension Icon
+   ![Extension](./Screenshots/Extension.png)
 
-![Dashboard](./Screenshots/Dashboard%201.png)
+   ## Recent Dashboard Improvements
 
-The extension includes a comprehensive dashboard that offers:
+   - Fully polished, modern dark mode dashboard
+   - Animated, center-aligned header and logo
+   - Responsive layout and improved spacing
+   - All screenshots in this README are up-to-date and reflect the current UI
+   - Deployed live on Netlify for easy access and sharing
 
-### Statistical Overview
-- Detection counts by category (safe, suspicious, phishing)
-- Protection rate calculation and visualization
-- Timeline trends of detected threats
+   ## Documentation
 
-### Recent Detections Table
-- Chronological list of scanned URLs
-- Detection scores and status indicators
-- Detailed view options for each entry
-- Export functionality for further analysis
+   For comprehensive documentation, please see:
+   - [Technical Documentation](./docs.md) - Deep analysis of components and features
+   - [Technical Report](./report.md) - Project overview, methodology, and results
 
-### Model Management
-- Current model information display
-- One-click update mechanism
-- Performance metrics tracking
+   ## License
 
-### API Configuration
-- Connection status indicators
-- Easy configuration interfaces
-- Testing capabilities
+   This project is available under the MIT License. See LICENSE file for details.
 
+   ## Disclaimer
 
-## Screenshots
-
-### Dashboard Main View
-![Dashboard Example 1](./Screenshots/Example%201.png)
-![Dashboard Example 2](./Screenshots/Example%202.png)
-![Dashboard Example 3](./Screenshots/Example%203.png)
-![Dashboard Time Range](./Screenshots/Time%20Range.png)
-
-### Extension Popup
-![Pop up](./Screenshots/Pop%20up.png)
-![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
-
-### Extension Icon
-![Extension](./Screenshots/Extension.png)
-
-
-## Live Demo
-
-You can try the dashboard live here: [https://customphishingdetection.netlify.app/dashboard.html](https://customphishingdetection.netlify.app/dashboard.html)
-
-## Documentation
-
-For comprehensive documentation, please see:
-- [Technical Documentation](./docs.md) - Detailed analysis of components and features
-- [Technical Report](./report.md) - Project overview, methodology, and results
-## Recent Dashboard Improvements
-
-- Fully polished, modern dark mode dashboard
-- Animated, center-aligned header and logo
-- Responsive layout and improved spacing
-- All screenshots in this README are up-to-date and reflect the current UI
-- Deployed live on Netlify for easy access and sharing
-
-## Development
-
-### Prerequisites
-- Chrome Browser (v88+)
-- Basic understanding of JavaScript, HTML, and CSS
-- Knowledge of Chrome Extension API
-
-### Project Structure
-```
-├── background.js         # Background service worker
-├── content.js            # Content script for page analysis
-├── dashboard.html        # Dashboard interface
-├── dashboard.js          # Dashboard functionality
-├── dashboard.css         # Dashboard styling
-├── feature_extractor.js  # Feature extraction for ML model
-├── ml_model.js           # Machine learning model integration
-├── popup.html            # Extension popup interface
-├── popup.js              # Popup functionality
-├── popup.css             # Popup styling
-├── api_integration.js    # External API communication
-├── whitelist_manager.js  # Whitelist functionality
+   This extension is for educational purposes only. While it attempts to detect phishing websites, it cannot guarantee 100% accuracy. Always exercise caution when entering sensitive information online.
 ├── manifest.json         # Extension configuration
 └── images/               # Icons and images
 ```

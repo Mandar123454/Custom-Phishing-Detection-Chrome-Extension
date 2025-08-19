@@ -168,16 +168,10 @@ To ensure minimal impact on browsing experience:
 
 ### Dashboard Overview
 
-![Dashboard 1](./Screenshots/Dashboard%201.png)
-
-The main dashboard provides a comprehensive overview of the extension's protection activities:
-
-1. **Header Section**: Features the extension name and logo, along with time range selector
-2. **Stats Cards**: Display key metrics including:
-   - Safe sites count
-   - Suspicious sites count
-   - Phishing sites count
-   - Overall protection rate
+![Example 1](./Screenshots/Example%201.png)
+![Example 2](./Screenshots/Example%202.png)
+![Example 3](./Screenshots/Example%203.png)
+![Time Range](./Screenshots/Time%20Range.png)
 3. **Detection Summary**: Visual representation of score distribution across all detections
 4. **Recent Detections Table**: Chronological listing of recently analyzed URLs with:
    - Timestamp
@@ -188,33 +182,12 @@ The main dashboard provides a comprehensive overview of the extension's protecti
 
 The dashboard uses a dark theme by default for reduced eye strain during extended use.
 
-![Dashboard 2](./Screenshots/Dashboard%202.png)
 
-The second dashboard view showcases:
-
-1. **API Integration Panel**: Shows the status of connected security APIs
-2. **Model Information**: Displays current ML model details including:
-   - Version information
-   - Last update timestamp
-   - Detection accuracy statistics
-   - Feature set description
-3. **Update Model Button**: Allows users to check for and install model updates
-
-The interface uses intuitive icons and clear status indicators to convey information efficiently.
-
-![Dashboard 3](./Screenshots/Dashboard%203.png)
-
-The expanded dashboard view demonstrates:
-
-1. **Additional Analysis Tools**: Extended options for URL investigation
-2. **Configuration Panel**: Interface for customizing detection sensitivity
-3. **Historical Data**: Longer-term trends in detection activities
 
 ### Extension Popup
 
-![Extension](./Screenshots/Extension.png)
 
-The extension popup provides immediate feedback when clicked:
+![Extension](./Screenshots/Extension.png)
 
 1. **Header**: Extension name and icon
 2. **Primary Detection Result**: Clear status indicator for the current site
@@ -225,18 +198,16 @@ The extension popup provides immediate feedback when clicked:
 
 The popup is designed for quick assessment, with more detailed options available through the dashboard.
 
-![Pop up](./Screenshots/Pop%20up.png)
 
-The standard popup view shows:
+![Pop up](./Screenshots/Pop%20up.png)
 
 1. **Risk Assessment**: Color-coded risk level indication
 2. **Specific Details**: Information about the detected threat
 3. **Time Information**: When the detection occurred
 4. **Action Buttons**: Options for user response
 
-![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
 
-The recent scan popup displays:
+![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
 
 1. **Scan History**: List of recently analyzed URLs
 2. **Status Indicators**: Color-coded status for each entry
@@ -245,7 +216,12 @@ The recent scan popup displays:
 
 ### Detection Examples
 
-![Example 1](./Screenshots/Example%201.png)
+
+## Live Dashboard
+
+Try the dashboard live: [https://customphishingdetection.netlify.app/dashboard.html](https://customphishingdetection.netlify.app/dashboard.html)
+
+---
 
 This screenshot demonstrates a high-confidence phishing detection:
 

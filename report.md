@@ -1,4 +1,25 @@
+
 # Custom Phishing Detection Chrome Extension
+## Live Dashboard
+
+Try the dashboard live: [https://customphishingdetection.netlify.app/dashboard.html](https://customphishingdetection.netlify.app/dashboard.html)
+
+## Screenshots (Current UI)
+
+All screenshots below are from the current version and reflect the deployed dashboard and popup:
+
+### Dashboard Main Views
+![Example 1](./Screenshots/Example%201.png)
+![Example 2](./Screenshots/Example%202.png)
+![Example 3](./Screenshots/Example%203.png)
+![Time Range](./Screenshots/Time%20Range.png)
+
+### Extension Popup
+![Pop up](./Screenshots/Pop%20up.png)
+![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
+
+### Extension Icon
+![Extension](./Screenshots/Extension.png)
 
 **Date**: August 19, 2025  
 **Version**: 2.4  

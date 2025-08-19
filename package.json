@@ -1,0 +1,26 @@
+{
+  "name": "phishing-detection-chrome-extension",
+  "version": "1.0.0",
+  "description": "A Chrome extension that uses machine learning, API integration, and advanced heuristics to detect and alert users about potential phishing websites.",
+  "main": "dashboard.js",
+  "scripts": {
+    "start": "echo \"No build process required\" && exit 0",
+    "build": "echo \"No build process required\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mandar123454/Custom-Phishing-Detection-Chrome-Extension.git"
+  },
+  "keywords": [
+    "phishing",
+    "security",
+    "chrome-extension",
+    "machine-learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mandar123454/Custom-Phishing-Detection-Chrome-Extension/issues"
+  },
+  "homepage": "https://github.com/Mandar123454/Custom-Phishing-Detection-Chrome-Extension#readme"
+}

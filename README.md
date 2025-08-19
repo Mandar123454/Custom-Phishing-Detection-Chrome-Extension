@@ -2,7 +2,7 @@
 
 A Chrome extension that uses machine learning, API integration, and advanced heuristics to detect and alert users about potential phishing websites.
 
-![Extension](./Screenshots/Extension.png)
+
 
 ## Features
 
@@ -127,25 +127,39 @@ The extension includes a comprehensive dashboard that offers:
 - Easy configuration interfaces
 - Testing capabilities
 
+
 ## Screenshots
 
-### Popup Interface
+### Dashboard Main View
+![Dashboard Example 1](./Screenshots/Example%201.png)
+![Dashboard Example 2](./Screenshots/Example%202.png)
+![Dashboard Example 3](./Screenshots/Example%203.png)
+![Dashboard Time Range](./Screenshots/Time%20Range.png)
+
+### Extension Popup
 ![Pop up](./Screenshots/Pop%20up.png)
+![Recent Scan in Pop up](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
 
-### Dashboard Views
-![Dashboard 2](./Screenshots/Dashboard%202.png)
+### Extension Icon
+![Extension](./Screenshots/Extension.png)
 
-### Detection Examples
-![Example 1](./Screenshots/Example%201.png)
 
-### Recent Scan History
-![Recent Scan](./Screenshots/Recent%20Scan%20in%20Pop%20up.png)
+## Live Demo
+
+You can try the dashboard live here: [https://customphishingdetection.netlify.app/dashboard.html](https://customphishingdetection.netlify.app/dashboard.html)
 
 ## Documentation
 
 For comprehensive documentation, please see:
 - [Technical Documentation](./docs.md) - Detailed analysis of components and features
 - [Technical Report](./report.md) - Project overview, methodology, and results
+## Recent Dashboard Improvements
+
+- Fully polished, modern dark mode dashboard
+- Animated, center-aligned header and logo
+- Responsive layout and improved spacing
+- All screenshots in this README are up-to-date and reflect the current UI
+- Deployed live on Netlify for easy access and sharing
 
 ## Development
 
